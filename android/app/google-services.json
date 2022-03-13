@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "83861704671",
+    "project_id": "healthsafe-3a1ab",
+    "storage_bucket": "healthsafe-3a1ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83861704671:android:804c2e383c43305d677e6a",
+        "android_client_info": {
+          "package_name": "com.example.healthsafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83861704671-om8g85nhhc4i9g3b1f9hn69i355qgtak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuSQKKmgtXgYVaZDSh8MBY1FCG87Gv4pQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83861704671-om8g85nhhc4i9g3b1f9hn69i355qgtak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
