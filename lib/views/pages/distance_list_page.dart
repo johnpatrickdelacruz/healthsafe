@@ -7,6 +7,7 @@ import 'package:healthsafe/bloc/distance_list/distance_list_event.dart';
 import 'package:healthsafe/bloc/distance_list/distance_state_event.dart';
 import 'package:healthsafe/model/distance_model.dart';
 import 'package:healthsafe/views/dialogs/generic_dialog.dart';
+import 'package:healthsafe/views/widget/base_button.dart';
 
 import '../../utils/utils.dart' as utils;
 import '../../values/strings.dart' as strings;
@@ -52,8 +53,12 @@ class _DistanceListPageState extends State<DistanceListPage> {
         }
       },
       child: BlocBuilder<DistanceListBloc, DistanceListState>(
-        builder: (context, state) {
-          return StreamBuilder<QuerySnapshot>(
+          builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Distance List'),
+          ),
+          body: StreamBuilder<QuerySnapshot>(
               stream: distanceListBloc.kilometerListStream,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -62,90 +67,78 @@ class _DistanceListPageState extends State<DistanceListPage> {
                 var modelList = utils.parseSnapshot(snapshot);
                 modelList!.sort((a, b) => b.date.compareTo(a.date));
 
-                return Scaffold(
-                  appBar: AppBar(
-                    title: const Text('Distance List'),
-                  ),
-                  body: ListView.builder(
-                    itemCount: modelList.length,
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.only(top: 16),
-                    itemBuilder: (context, index) {
-                      return Slidable(
-                          key: const ValueKey(0),
-                          endActionPane: ActionPane(
-                            motion: const ScrollMotion(),
-                            children: [
-                              SlidableAction(
-                                onPressed: (context) {
-                                  distanceListBloc.add(DeleteDistanceById(
-                                      id: modelList[index].id));
-                                },
-                                backgroundColor: const Color(0xFFFE4A49),
-                                foregroundColor: Colors.white,
-                                icon: Icons.delete,
-                                label: 'Delete',
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                              onTap: () => showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) {
-                                      return Container(
-                                        padding: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context)
-                                                .viewInsets
-                                                .bottom),
-                                        child: Wrap(
-                                          children: [
-                                            Center(
-                                                child: Text('Update ' +
-                                                    modelList[index].kilometer +
-                                                    ' kilometer')),
-                                            TextField(
-                                                controller:
-                                                    kilometerController),
-                                            Center(
-                                              child: ElevatedButton(
-                                                child: const Text(
-                                                  'Update',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  distanceListBloc.add(
-                                                      UpdateDistanceById(
-                                                          id: modelList[index]
-                                                              .id,
-                                                          kilometer:
-                                                              kilometerController
-                                                                  .text));
-                                                },
-                                              ),
+                return ListView.builder(
+                  itemCount: modelList.length,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.only(top: 16),
+                  itemBuilder: (context, index) {
+                    return Slidable(
+                        key: const ValueKey(0),
+                        endActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          children: [
+                            SlidableAction(
+                              onPressed: (context) {
+                                distanceListBloc.add(DeleteDistanceById(
+                                    id: modelList[index].id));
+                              },
+                              backgroundColor: const Color(0xFFFE4A49),
+                              foregroundColor: Colors.white,
+                              icon: Icons.delete,
+                              label: 'Delete',
+                            ),
+                          ],
+                        ),
+                        child: ListTile(
+                            onTap: () => showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return Container(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                              .viewInsets
+                                              .bottom),
+                                      child: Wrap(
+                                        children: [
+                                          Center(
+                                              child: Text('Update ' +
+                                                  modelList[index].kilometer +
+                                                  ' kilometer')),
+                                          TextField(
+                                              controller: kilometerController),
+                                          Center(
+                                            child: BaseButton(
+                                              text: 'Update',
+                                              onPressed: () {
+                                                distanceListBloc.add(
+                                                    UpdateDistanceById(
+                                                        id: modelList[index].id,
+                                                        kilometer:
+                                                            kilometerController
+                                                                .text));
+                                              },
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                              leading: const Icon(Icons.list),
-                              trailing: Text(
-                                utils.dateFormat(modelList[index].date),
-                                style: const TextStyle(
-                                    color: Color.fromRGBO(76, 175, 80, 1),
-                                    fontSize: 15),
-                              ),
-                              title: Text(
-                                  modelList[index].kilometer + " kilometer")));
-                    },
-                  ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                            leading: const Icon(Icons.list),
+                            trailing: Text(
+                              utils.dateFormat(modelList[index].date),
+                              style: const TextStyle(
+                                  color: Color.fromRGBO(76, 175, 80, 1),
+                                  fontSize: 15),
+                            ),
+                            title: Text(
+                                modelList[index].kilometer + " kilometer")));
+                  },
                 );
-              });
-        },
-      ),
+              }),
+        );
+      }),
     );
   }
 }

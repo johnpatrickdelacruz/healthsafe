@@ -6,6 +6,7 @@ import 'package:healthsafe/bloc/signin/signin_bloc.dart';
 import 'package:healthsafe/bloc/signin/signin_event.dart';
 import 'package:healthsafe/bloc/signin/signin_state.dart';
 import 'package:healthsafe/views/dialogs/generic_dialog.dart';
+import 'package:healthsafe/views/widget/base_button.dart';
 
 import '../../values/strings.dart' as strings;
 
@@ -59,19 +60,14 @@ class _SignInPageState extends State<SignInPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                ElevatedButton(
-                  child: const Text(
-                    strings.signIn,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                BaseButton(
+                  text: strings.signIn,
                   onPressed: () {
                     BlocProvider.of<SignInBloc>(context)
                         .add(const SignInUserEvent());
                   },
                 ),
-                Container(height: 20.0), //SizedBox(height: 20.0),
+                Container(height: 20.0),
               ],
             ),
           );

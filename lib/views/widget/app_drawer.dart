@@ -38,16 +38,6 @@ class _AppDrawerState extends State<AppDrawer> {
                     .add(const NavigationToViewDistanceList(predicate: true));
               },
             ),
-            // ListTile(
-            //   leading: const Icon(
-            //     Icons.logout,
-            //     size: 20,
-            //   ),
-            //   title: const Text('Logout'),
-            //   onTap: () {
-            //     BlocProvider.of<SignInBloc>(context).add(const SignOutUser());
-            //   },
-            // ),
           ],
         ),
       ),
