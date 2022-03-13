@@ -36,6 +36,10 @@ class DistanceService {
     await _distance.doc(id).delete();
   }
 
+  Future<dynamic> updateDistanceById({id, kilometer}) async {
+    await _distance.doc(id).update({"kilometer": kilometer});
+  }
+
   Stream<QuerySnapshot> getStreamDistanceList() async* {
     yield* _distance.snapshots();
   }

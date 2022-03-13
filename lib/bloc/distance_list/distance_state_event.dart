@@ -13,6 +13,8 @@ class DistanceListInitial extends DistanceListState {}
 
 class DeleteDistanceSuccess extends DistanceListState {}
 
+class UpdateDistanceSuccess extends DistanceListState {}
+
 class DistanceListSuccess extends DistanceListState {
   const DistanceListSuccess({required this.distanceModelList});
 

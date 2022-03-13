@@ -9,6 +9,7 @@ import 'package:healthsafe/model/distance_model.dart';
 import 'package:healthsafe/views/dialogs/generic_dialog.dart';
 
 import '../../utils/utils.dart' as utils;
+import '../../values/strings.dart' as strings;
 
 class DistanceListPage extends StatefulWidget {
   const DistanceListPage({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class DistanceListPage extends StatefulWidget {
 class _DistanceListPageState extends State<DistanceListPage> {
   late List<DistanceModel> distanceModelList;
   late DistanceListBloc distanceListBloc;
+  final kilometerController = TextEditingController();
 
   @override
   void initState() {
@@ -42,6 +44,11 @@ class _DistanceListPageState extends State<DistanceListPage> {
 
         if (state is DistanceListLoading) {
           GenericDialog.showLoadingDialog(context);
+        }
+
+        if (state is UpdateDistanceSuccess) {
+          Navigator.pop(context); // for loading dialog
+          Navigator.pop(context); // for bottom sheet
         }
       },
       child: BlocBuilder<DistanceListBloc, DistanceListState>(
@@ -82,6 +89,48 @@ class _DistanceListPageState extends State<DistanceListPage> {
                             ],
                           ),
                           child: ListTile(
+                              onTap: () => showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return Container(
+                                        padding: EdgeInsets.only(
+                                            bottom: MediaQuery.of(context)
+                                                .viewInsets
+                                                .bottom),
+                                        child: Wrap(
+                                          children: [
+                                            Center(
+                                                child: Text('Update ' +
+                                                    modelList[index].kilometer +
+                                                    'kilometer')),
+                                            TextField(
+                                                controller:
+                                                    kilometerController),
+                                            Center(
+                                              child: ElevatedButton(
+                                                child: const Text(
+                                                  'Update',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  distanceListBloc.add(
+                                                      UpdateDistanceById(
+                                                          id: modelList[index]
+                                                              .id,
+                                                          kilometer:
+                                                              kilometerController
+                                                                  .text));
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
                               leading: const Icon(Icons.list),
                               trailing: Text(
                                 utils.dateFormat(modelList[index].date),

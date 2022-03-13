@@ -23,17 +23,6 @@ class AddDistancePage extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: const Text('Add Distance'),
-            // actions: <Widget>[
-            //   IconButton(
-            //     icon: const Icon(
-            //       Icons.logout,
-            //       color: Colors.white,
-            //     ),
-            //     onPressed: () {
-            //       BlocProvider.of<SignInBloc>(context).add(const SignOutUser());
-            //     },
-            //   )
-            // ],
           ),
           body: FormBlocListener<AddDistanceBloc, String, String>(
             onSubmitting: (context, state) {

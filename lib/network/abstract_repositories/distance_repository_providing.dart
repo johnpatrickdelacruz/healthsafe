@@ -11,4 +11,6 @@ abstract class DistanceRepositoryProviding {
   Stream<QuerySnapshot> getStreamDistanceList();
 
   Future<dynamic> deleteDistanceById({@required id});
+
+  Future<dynamic> updateDistanceById({@required id, @required kilometer});
 }

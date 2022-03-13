@@ -25,3 +25,16 @@ class DeleteDistanceById extends DistanceListEvent {
   @override
   String toString() => 'id $id';
 }
+
+class UpdateDistanceById extends DistanceListEvent {
+  const UpdateDistanceById({required this.id, required this.kilometer});
+
+  final String id;
+  final String kilometer;
+
+  @override
+  List<Object> get props => [id, kilometer];
+
+  @override
+  String toString() => 'id $id, kilometer $kilometer';
+}

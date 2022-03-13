@@ -28,6 +28,22 @@ class DistanceListBloc extends Bloc<DistanceListEvent, DistanceListState> {
         emit(const DistanceListFailure(error: Errors.Generic));
       }
     });
+
+    on<UpdateDistanceById>((event, emit) async {
+      emit(DistanceListLoading());
+      if (!(await ConnectionHelper.hasConnection())) {
+        emit(const DistanceListFailure(error: Errors.NoNetwork));
+        return;
+      }
+
+      try {
+        await _distanceRepositoryProviding.updateDistanceById(
+            id: event.id, kilometer: event.kilometer);
+        emit(UpdateDistanceSuccess());
+      } catch (error) {
+        emit(const DistanceListFailure(error: Errors.Generic));
+      }
+    });
   }
 
   static DistanceListState get initialState => DistanceListInitial();

@@ -26,4 +26,9 @@ class DistanceRepository extends DistanceRepositoryProviding {
   Future<dynamic> deleteDistanceById({id}) async {
     await _distanceService.deleteDistanceById(id: id);
   }
+
+  @override
+  Future<dynamic> updateDistanceById({id, kilometer}) async {
+    await _distanceService.updateDistanceById(id: id, kilometer: kilometer);
+  }
 }

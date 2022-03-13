@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healthsafe/bloc/navigation/navigation_bloc.dart';
@@ -16,8 +17,15 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () async {
-      BlocProvider.of<NavigationBloc>(context)
-          .add(const NavigationToSignIn(predicate: false));
+      var user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        BlocProvider.of<NavigationBloc>(context)
+            .add(const NavigationToSignIn(predicate: false));
+      } else {
+        BlocProvider.of<NavigationBloc>(context)
+            .add(const NavigationToEnterDistance(predicate: false));
+      }
     }).catchError((error) => throw Exception(error));
   }
 
