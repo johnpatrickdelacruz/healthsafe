@@ -60,7 +60,7 @@ class _DistanceListPageState extends State<DistanceListPage> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 var modelList = utils.parseSnapshot(snapshot);
-                modelList!.sort((a, b) => a.date.compareTo(b.date));
+                modelList!.sort((a, b) => b.date.compareTo(a.date));
 
                 return Scaffold(
                   appBar: AppBar(
@@ -103,7 +103,7 @@ class _DistanceListPageState extends State<DistanceListPage> {
                                             Center(
                                                 child: Text('Update ' +
                                                     modelList[index].kilometer +
-                                                    'kilometer')),
+                                                    ' kilometer')),
                                             TextField(
                                                 controller:
                                                     kilometerController),

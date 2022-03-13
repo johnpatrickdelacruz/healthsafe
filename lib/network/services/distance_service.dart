@@ -8,13 +8,9 @@ class DistanceService {
   Future<String> addDistance({kilometer}) async {
     String resp = '';
 
-    // var _randomId = _distance.doc().id;
-
-    await _distance.add({
-      // "id": _randomId,
-      "kilometer": kilometer,
-      "date": DateTime.now().toString()
-    }).then((value) {
+    await _distance
+        .add({"kilometer": kilometer, "date": DateTime.now().toString()}).then(
+            (value) {
       resp = 'success';
     }).catchError((e) {
       resp = 'fail';
